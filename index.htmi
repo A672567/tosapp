@@ -1,14 +1,1 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>高知県 観光スポット</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>高知県 観光スポット</h1>
-  <div id="spots"></div>
 
-  <script src="script.js"></script>
-</body>
-</html>
