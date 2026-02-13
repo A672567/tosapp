@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>高知モーニングナビ</title>
+<link rel="stylesheet" href="css/style.css" />
 
 <style>
 body {
@@ -83,7 +84,7 @@ select {
     <option value="おしゃれ">おしゃれカフェ</option>
   </select>
   <select id="sortFilter">
-    <option value="all"評価順で絞る</option>
+    <option value="all">評価順で絞る</option>
     <option value="ratingDesc">評価が高い順</option>
     <option value="ratingAsc">評価が低い順</option>
   </select>
@@ -94,6 +95,10 @@ select {
 <footer style="text-align:center;padding:10px;">
   <p>© 2026 Kochi Morning Navi</p>
 </footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
 
 <script>
 const shops = [
