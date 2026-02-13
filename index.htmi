@@ -1,1 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高知モーニングナビ</title>
 
+<style>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #fff8f0;
+}
+
+header {
+  background: #ff914d;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.filter {
+  padding: 15px;
+  text-align: center;
+}
+
+select {
+  padding: 8px;
+  margin: 5px;
+}
+
+.shop-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.shop-card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.shop-card h3 {
+  margin-top: 0;
+}
+
+.tag {
+  display: inline-block;
+  background: #ffe0cc;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>☀️ 高知モーニングナビ</h1>
+  <p>地元民も観光客も使えるモーニング検索アプリ</p>
+  <p>高知県は人口1000人あたりの喫茶店数が日本一！モーニング文化が豊かな高知に住む大学生がおすすめの喫茶店を教えます！</p>
+</header>
+
+<section class="filter">
+  <select id="areaFilter">
+    <option value="all">エリアで絞る</option>
+    <option value="高知市">高知市</option>
+    <option value="南国市">南国市</option>
+    <option value="四万十市">四万十市</option>
+    <option value="安芸市">安芸市</option>
+    <option value="室戸市">室戸市</option>
+  </select>
+
+  <select id="typeFilter">
+    <option value="all">タイプで絞る</option>
+    <option value="ボリューム">ボリューム系</option>
+    <option value="和風">和風</option>
+    <option value="おしゃれ">おしゃれカフェ</option>
+  </select>
+  <select id="sortFilter">
+    <option value="all"評価順で絞る</option>
+    <option value="ratingDesc">評価が高い順</option>
+    <option value="ratingAsc">評価が低い順</option>
+  </select>
+</section>
+
+<section id="shopList" class="shop-list"></section>
+
+<footer style="text-align:center;padding:10px;">
+  <p>© 2026 Kochi Morning Navi</p>
+</footer>
+
+<script>
+const shops = [
+  {
+    name: "喫茶メフィストフェレス",
+    area: "高知市",
+    type: "ボリューム",
+    description: "創業40年以上。トースト＋サラダ＋ゆで卵の王道モーニング。",
+    recommend: "地元人気",
+    rating: 4.5
+  },
+  {
+    name: "珈琲館 高知南国店",
+    area: "南国市",
+    type: "おしゃれ",
+    description: "落ち着いた空間で楽しめる定番モーニングセット。",
+    recommend: "観光客おすすめ",
+    rating: 4.0
+  },
+  {
+    name: "コメダ珈琲店 高知インター店",
+    area: "高知市",
+    type: "ボリューム",
+    description: "ドリンク注文でトースト無料。ボリューム満点。",
+    recommend: "観光客おすすめ",
+    rating: 4.2
+  },
+  {
+    name: "カフェ ヒラオカ",
+    area: "高知市",
+    type: "おしゃれ",
+    description: "観光客にも人気。おしゃれ空間でゆったりモーニング。",
+    recommend: "観光客おすすめ",
+    rating: 4.7
+  },
+  {
+    name: "南国食堂あさひ",
+    area: "南国市",
+    type: "和風",
+    description: "和定食モーニングが楽しめる。朝からしっかり派におすすめ。",
+    recommend: "地元おすすめ",
+    rating: 4.3
+  }
+];
+
+const shopList = document.getElementById("shopList");
+const areaFilter = document.getElementById("areaFilter");
+const typeFilter = document.getElementById("typeFilter");
+
+function displayShops(filteredShops) {
+  shopList.innerHTML = "";
+
+  filteredShops.forEach(shop => {
+    const card = document.createElement("div");
+    card.className = "shop-card";
+
+    card.innerHTML = `
+      <h3>${shop.name}</h3>
+      <span class="tag">${shop.area}</span>
+      <span class="tag">${shop.type}</span>
+      <span class="tag">${shop.recommend}</span>
+      <p>${shop.description}</p>
+    `;
+
+    shopList.appendChild(card);
+  });
+}
+
+function filterShops() {
+  const areaValue = areaFilter.value;
+  const typeValue = typeFilter.value;
+  const sortValue = sortFilter.value;
+
+  let filtered = shops.filter(shop => {
+    return (areaValue === "all" || shop.area === areaValue) &&
+           (typeValue === "all" || shop.type === typeValue);
+  });
+
+  if (sortValue === "ratingDesc") {
+    filtered.sort((a, b) => b.rating - a.rating);
+  } else if (sortValue === "ratingAsc") {
+    filtered.sort((a, b) => a.rating - b.rating);
+  }
+
+  displayShops(filtered);
+}
+
+areaFilter.addEventListener("change", filterShops);
+typeFilter.addEventListener("change", filterShops);
+sortFilter.addEventListener("change", filterShops);
+
+displayShops(shops);
+</script>
+
+</body>
+</html>
